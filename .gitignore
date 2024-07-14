@@ -1,2 +1,2 @@
 vendor/
-config/database.php
+backend/config/database.php

@@ -26,6 +26,7 @@ if ($uri[4] !== 'api') {
 // Handle endpoints based on URI segments
 switch ($uri[5]) {
     case 'auth':
+        // Handle authentication endpoints
         if ($uri[6] === 'register' && $requestMethod == 'POST') {
             $authController->register();
         } elseif ($uri[6] === 'login' && $requestMethod == 'POST') {
@@ -42,6 +43,7 @@ switch ($uri[5]) {
         }
         break;
     case 'recipes':
+        // Handle recipes endpoints
         if (!$authController->isAuthenticated()) {
             http_response_code(401);
             echo json_encode(["success" => false, "message" => "Unauthorized."]);
@@ -67,6 +69,7 @@ switch ($uri[5]) {
         }
         break;
     case 'users':
+        // Handle users endpoints
         if (!$authController->isAuthenticated()) {
             http_response_code(401);
             echo json_encode(["success" => false, "message" => "Unauthorized."]);
@@ -117,6 +120,7 @@ switch ($uri[5]) {
         }
         break;
     default:
+        // Handle unknown endpoints
         http_response_code(404);
         echo json_encode(["success" => false, "message" => "Endpoint not found."]);
         break;

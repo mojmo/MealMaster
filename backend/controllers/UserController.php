@@ -1,13 +1,15 @@
 <?php
-require_once DIR . '/../models/User.php';
+require_once __DIR__ . '/../models/user.php';
+require_once __DIR__ . '/../config/database.php';
 
 class UserController {
     private $db;
     private $user;
 
-    public function __construct($db) {
-        $this->db = $db;
-        $this->user = new User($db);
+    public function __construct() {
+        $database = new Database();
+        $this->db = $database->getConnection();
+        $this->user = new User($this->db);
     }
 
     public function readUser() {
@@ -27,7 +29,7 @@ class UserController {
         $stmt = $this->user->read();
 
         $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+
         if ($user_data) {
             echo json_encode([
                 "success" => true,
@@ -37,6 +39,14 @@ class UserController {
             http_response_code(404);
             echo json_encode(["success" => false, "message" => "User not found."]);
         }
+    }
+
+    public function getUser($id) {
+        return $this->user->getUser($id);
+    }
+
+    public function updateUser($id, $data) {
+        return $this->user->updateUser($id, $data);
     }
 }
 ?>

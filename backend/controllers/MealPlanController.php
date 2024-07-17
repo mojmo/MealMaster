@@ -1,10 +1,12 @@
 <?php
 
+require_once __DIR__ . '/../services/MealPlanService.php'; // Adjust the path as per your project structure
+
 class MealPlanController {
     private $mealPlanService;
 
-    public function __construct($mealPlanService) {
-        $this->mealPlanService = $mealPlanService;
+    public function __construct() {
+        $this->mealPlanService = new MealPlanService(); // Instantiate MealPlanService
     }
 
     // Handles creating a new meal plan

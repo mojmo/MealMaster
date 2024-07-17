@@ -1,4 +1,5 @@
 <?php
+
 class MealPlanController {
     private $mealPlanService;
 
@@ -13,10 +14,9 @@ class MealPlanController {
         return json_encode($response); // Return response in JSON format
     }
 
-    // Handles retrieving meal plans for a user
-    public function getMealPlans($request) {
-        $userId = $request->getQueryParams()['userId']; // Get user ID from query parameters
-        $response = $this->mealPlanService->getMealPlans($userId); // Call service to handle business logic
+    // Handles retrieving all meal plans
+    public function getMealPlans() {
+        $response = $this->mealPlanService->getMealPlans(); // Call service to handle business logic
         return json_encode($response); // Return response in JSON format
     }
 
@@ -28,9 +28,10 @@ class MealPlanController {
     }
 
     // Handles deleting a meal plan
-    public function deleteMealPlan($request, $id) {
+    public function deleteMealPlan($id) {
         $response = $this->mealPlanService->deleteMealPlan($id); // Call service to handle business logic
         return json_encode($response); // Return response in JSON format
     }
 }
 
+?>

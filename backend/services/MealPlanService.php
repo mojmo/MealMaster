@@ -1,28 +1,35 @@
 <?php
+require_once __DIR__ . '/../models/mealPlan.php';
+require_once __DIR__ . '/../config/database.php';
+
 class MealPlanService {
     private $mealPlanModel;
+    private $db;
 
-    public function __construct($mealPlanModel) {
-        $this->mealPlanModel = $mealPlanModel;
+    public function __construct() {
+        $database = new Database();
+        $this->db = $database->getConnection();
+        $this->mealPlanModel = new MealPlan($this->db);
     }
 
-    // Logic to create a meal plan
-    public function createMealPlan($data) {
-        return $this->mealPlanModel->create($data); // Call model to handle database operations
+    public function createMealPlan($mealPlan) {
+        return $this->mealPlanModel->createMealPlan($mealPlan);
     }
 
-    // Logic to get meal plans for a user
-    public function getMealPlans($userId) {
-        return $this->mealPlanModel->getByUserId($userId); // Call model to handle database operations
+    public function updateMealPlan($id, $mealPlan) {
+        return $this->mealPlanModel->updateMealPlan($id, $mealPlan);
     }
 
-    // Logic to update a meal plan
-    public function updateMealPlan($id, $data) {
-        return $this->mealPlanModel->update($id, $data); // Call model to handle database operations
-    }
-
-    // Logic to delete a meal plan
     public function deleteMealPlan($id) {
-        return $this->mealPlanModel->delete($id); // Call model to handle database operations
+        return $this->mealPlanModel->deleteMealPlan($id);
+    }
+
+    public function getMealPlans() {
+        return $this->mealPlanModel->getMealPlans();
+    }
+
+    public function getMealPlan($id) {
+        return $this->mealPlanModel->getMealPlan($id);
     }
 }
+?>

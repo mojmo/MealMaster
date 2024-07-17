@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../models/mealPlan.php';
+require_once __DIR__ . '/../models/MealPlan.php';
 require_once __DIR__ . '/../config/database.php';
 
 class MealPlanService {

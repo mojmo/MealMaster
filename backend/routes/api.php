@@ -84,39 +84,28 @@ switch ($uri[5]) {
             echo json_encode($userController->updateUser($id, $data));
         }
         break;
-    case 'mealplans': // Add mealplans endpoint
+    case 'mealplans':
         if (!$authController->isAuthenticated()) {
             http_response_code(401);
             echo json_encode(["success" => false, "message" => "Unauthorized."]);
             exit();
         }
-        // Handle CRUD operations for meal plans
-        switch ($requestMethod) {
-            case 'POST':
-                $data = json_decode(file_get_contents('php://input'), true);
-                echo json_encode($mealPlanController->createMealPlan($data));
-                break;
-            case 'GET':
-                if (isset($uri[6]) && is_numeric($uri[6])) {
-                    $id = intval($uri[6]);
-                    echo json_encode($mealPlanController->getMealPlan($id));
-                } else {
-                    echo json_encode($mealPlanController->getMealPlans());
-                }
-                break;
-            case 'PUT':
-                $id = $uri[6];
-                $data = json_decode(file_get_contents('php://input'), true);
-                echo json_encode($mealPlanController->updateMealPlan($id, $data));
-                break;
-            case 'DELETE':
-                $id = $uri[6];
-                echo json_encode($mealPlanController->deleteMealPlan($id));
-                break;
-            default:
-                http_response_code(404);
-                echo json_encode(["success" => false, "message" => "Invalid method for meal plans."]);
-                break;
+
+        $userId = $authController->getCurrentUserId();
+
+        if ($requestMethod == 'POST') {
+            $data = json_decode(file_get_contents('php://input'), true);
+            $data['user_id'] = $userId; // Ensure the user_id is from the authenticated user
+            echo json_encode($mealPlanController->createMealPlan($data));
+        } elseif ($requestMethod == 'GET') {
+            echo json_encode($mealPlanController->getMealPlansByUser($userId));
+        } elseif ($requestMethod == 'PUT') {
+            $id = $uri[6];
+            $data = json_decode(file_get_contents('php://input'), true);
+            echo json_encode($mealPlanController->updateMealPlan($id, $data));
+        } elseif ($requestMethod == 'DELETE') {
+            $id = $uri[6];
+            echo json_encode($mealPlanController->deleteMealPlan($id));
         }
         break;
     default:

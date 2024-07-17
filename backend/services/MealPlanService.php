@@ -26,4 +26,3 @@ class MealPlanService {
         return $this->mealPlanModel->delete($id); // Call model to handle database operations
     }
 }
-?>

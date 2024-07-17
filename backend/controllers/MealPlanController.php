@@ -33,4 +33,4 @@ class MealPlanController {
         return json_encode($response); // Return response in JSON format
     }
 }
-?>
+

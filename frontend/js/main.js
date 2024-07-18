@@ -285,7 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 const result = await response.json();
                 if (response.ok) {
-                    document.querySelector('.update-meal-success').style.display = 'block';
+                    document.querySelector('.update-recipe-success').style.display = 'block';
                     setTimeout(() => {
                         window.location.href = `${frontendUrl}recipes.html`;
                     }, 1000);

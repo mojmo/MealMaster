@@ -1,3 +1,2 @@
-vendor/
-backend/config/database.php
+dump.sql
 schema.sql

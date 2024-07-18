@@ -52,5 +52,9 @@ class AuthService {
         return isset($_SESSION['user_id']);
     }
 
+    public function getCurrentUserId() {
+        return $_SESSION['user_id'];
+    }
+
 }
 ?>

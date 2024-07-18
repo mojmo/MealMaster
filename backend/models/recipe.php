@@ -93,5 +93,14 @@ class Recipe {
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getRecipeByUserId($id) {
+        $query = "SELECT * FROM $this->table_name WHERE user_id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

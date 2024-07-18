@@ -2,22 +2,59 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MealMaster - Home</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-    <header>
-        <h1>MealMaster</h1>
-        <nav>
-            <button id="recipesButton">Recipes</button>
-            <button id="logoutButton">Logout</button>
-        </nav>
-    </header>
-    <main>
-        <h2>Welcome to MealMaster</h2>
-        <ul id="recipeList"></ul>
-        <a href="createRecipe.html">Create New Recipe</a>
-    </main>
-    <script src="../javascript/app.js"></script>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">MealMaster</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="recipes.html">Recipes</a></li>
+                <li class="nav-item"><a class="nav-link" href="meal_plans.html">Meal Plans</a></li>
+                <li class="nav-item"><a class="nav-link" href="user.html">User</a></li>
+                <li class="nav-item" id="logoutButton"><a class="nav-link" href="login.html">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <header>
+            <h2>Welcome to MealMaster</h2>
+            <p>
+                Welcome to MealMaster, your ultimate companion for meal planning and recipe management. Whether you're a culinary enthusiast or just looking to simplify your daily meal routines, MealMaster provides you with the tools to create, manage, and enjoy delicious recipes and meal plans. Plan your meals with ease, keep track of ingredients, and ensure a balanced diet with our intuitive and user-friendly interface. Join our community and start your journey towards better eating today!
+            </p>
+        </header>
+        
+        <div class="title-header">
+            <h3>Recipes</h3>
+            <a href="recipes.html" class="btn btn-primary view-all-btn">View All Recipes</a>
+        </div>
+        <p>
+            Discover a world of flavors with our diverse collection of recipes. From quick weeknight dinners to gourmet dishes, MealMaster helps you find the perfect recipe for any occasion. Save your favorite recipes, share them with others, and enjoy step-by-step instructions to create culinary masterpieces in your own kitchen.
+        </p>
+        <div class="row recipe-list" id="recipesSection">
+            <!-- Recipes will be loaded here -->
+        </div>
+        
+        <div class="title-header">
+            <h3>Meal Plans</h3>
+            <a href="meal_plans.html" class="btn btn-primary view-all-btn">View All Meal Plans</a>
+        </div>
+        <p>
+            Take the hassle out of meal planning with MealMaster's meal plans. Our tool helps you create personalized meal plans, ensuring you have delicious and nutritious meals ready for every day of the week. Whether you want to use your own recipes or explore new ones, MealMaster makes meal planning effortless and enjoyable.
+        </p>
+        <div class="row mealPlansContainer" id="mealPlansSection">
+            <!-- Meal plans will be loaded here -->
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="../js/main.js"></script>
 </body>
 </html>

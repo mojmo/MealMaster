@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipes</title>
+    <title>Create Recipe</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/styles.css">
 </head>
@@ -16,6 +16,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="recipes.html">Recipes</a></li>
                 <li class="nav-item"><a class="nav-link" href="meal_plans.html">Meal Plans</a></li>
                 <li class="nav-item"><a class="nav-link" href="user.html">User</a></li>
                 <li class="nav-item" id="logoutButton"><a class="nav-link" href="login.html">Logout</a></li>
@@ -23,14 +24,25 @@
         </div>
     </nav>
     
-    <div class="container">
-        <div class="title-header">
-            <h2>Recipes</h2>
-            <a href="create_recipe.html" class="btn btn-success mb-3">Create New Recipe</a>
-        </div>
-        <div class="recipe-list row" id="recipesContainer">
-            <!-- Recipes will be loaded here -->
-        </div>
+    <div class="container form-container">
+        <h2>Create Recipe</h2>
+        <form id="createRecipeForm">
+            <div class="form-group">
+                <label for="recipeName">Recipe Name:</label>
+                <input type="text" class="form-control" id="recipeName" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="ingredients">Ingredients:</label>
+                <textarea class="form-control" id="ingredients" name="ingredients" rows="5" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="instructions">Instructions:</label>
+                <textarea class="form-control" id="instructions" name="instructions" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Create Recipe</button>
+            <div class="alert alert-success create-recipe-success" id="successMsg" style="display: none;">New recipe created successfully!</div>
+            <div class="alert alert-danger" id="errorMsg" style="display: none;"></div>
+        </form>
     </div>
 
     <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>

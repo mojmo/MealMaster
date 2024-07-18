@@ -98,7 +98,13 @@ switch ($uri[5]) {
             $data['user_id'] = $userId; // Ensure the user_id is from the authenticated user
             echo json_encode($mealPlanController->createMealPlan($data));
         } elseif ($requestMethod == 'GET') {
-            echo json_encode($mealPlanController->getMealPlansByUser($userId));
+            if (isset($uri[6]) && is_numeric($uri[6])) {
+                $id = intval($uri[6]);
+                echo json_encode($mealPlanController->getMealPlan($id));
+            } else {
+                echo json_encode($mealPlanController->getMealPlans());
+            }
+            // echo json_encode($mealPlanController->getMealPlans());
         } elseif ($requestMethod == 'PUT') {
             $id = $uri[6];
             $data = json_decode(file_get_contents('php://input'), true);

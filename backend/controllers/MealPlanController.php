@@ -23,38 +23,41 @@ class MealPlanController {
     public function createMealPlan($data) {
         $this->mealPlanModel->user_id = $data['user_id'];
         $this->mealPlanModel->name = $data['name'];
-    
+        
         if ($this->mealPlanModel->createMealPlan($data)) {
             // Get user's recipes
             $recipes = $this->recipeModel->getRecipeByUserId($this->mealPlanModel->user_id);
-    
-            if (count($recipes) == 0) {
+        
+            if (count($recipes) < 3) {
                 // If user has no recipes, select random recipes
                 $recipes = $this->recipeModel->getRecipes();
             }
-    
+        
             // Shuffle and pick 3 random recipes
             shuffle($recipes);
             $selectedRecipes = array_slice($recipes, 0, 3);
-    
+        
             // Assign each recipe to a specific meal
             $meals = ['breakfast', 'lunch', 'dinner'];
             $mealPlanRecipes = [];
-    
+        
             foreach ($selectedRecipes as $index => $recipe) {
+                // Set the meal plan ID and recipe ID
                 $this->mealPlanRecipeModel->meal_plan_id = $this->mealPlanModel->id;
                 $this->mealPlanRecipeModel->recipe_id = $recipe['id'];
+                
+                // Save the recipe to the meal plan
                 $this->mealPlanRecipeModel->addRecipeToMealPlan();
-    
+        
                 $mealPlanRecipes[] = [
                     'recipe_id' => $recipe['id'],
                     'meal' => $meals[$index]
                 ];
             }
-    
+        
             return [
                 'success' => true,
-                'message' => 'Meal plan created successfuly',
+                'message' => 'Meal plan created successfully',
                 'meal_plans' => [
                     [
                         'id' => $this->mealPlanModel->id,
@@ -69,6 +72,7 @@ class MealPlanController {
             return ['success' => false, 'message' => 'Failed to create meal plan'];
         }
     }
+    
 
 
     public function updateMealPlan($id, $data) {
@@ -93,6 +97,33 @@ class MealPlanController {
         }
     }
 
+    public function getMealPlans() {
+        $mealPlans = $this->mealPlanModel->getMealPlans();
+
+        foreach ($mealPlans as $index => $mealPlan) {
+            $mealPlanRecipes = $this->mealPlanRecipeModel->getRecipesByMealPlan($mealPlan['id']);
+            $mealPlans[$index]['recipes'] = $mealPlanRecipes->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        if (count($mealPlans) == 0) {
+            return ['success' => true,'meal_plans' => []];
+        } elseif (count($mealPlans) > 0) {
+            return ['success' => true,'meal_plans' => $mealPlans];
+        } else {
+            return ['success' => false,'message' => 'Failed to get meal plans'];
+        }
+
+    }
+
+    public function getMealPlan($id) {
+        $this->mealPlanModel->id = $id;
+        $mealPlan = $this->mealPlanModel->getMealPlan($id);
+        $mealPlanRecipes = $this->mealPlanRecipeModel->getRecipesByMealPlan($id);
+        $mealPlan['recipes'] = $mealPlanRecipes->fetchAll(PDO::FETCH_ASSOC);
+
+        return ['success' => true,'meal_plan' => $mealPlan];
+    }
+
     public function getMealPlansByUser($user_id) {
         $mealPlans = $this->mealPlanModel->getMealPlanByUserId($user_id);
         // $mealPlans = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -107,3 +138,4 @@ class MealPlanController {
 }
 
 ?>
+
